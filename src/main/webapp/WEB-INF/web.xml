@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+        xmlns = "https://jakarta.ee/xml/ns/jakartaee"
+        xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation = "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+        version = "5.0"
+        metadata-complete = "false"
+>
+  <display-name>springmvcDiscover</display-name>
+
+  <!-- 指定ContextLoaderListener加载web容器时使用的多个xml配置文件（默认使用/WEB-INF/applicationContext.xml） -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- 注册过滤器代理 -->
+  <filter>
+    <filter-name>customFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>customFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- 配置监听器ContextLoaderListener，其加载顶层WebApplicationContext web容器-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- 注册一级控制器 DispatcherServlet，用于拦截所有请求(匹配url-pattern) -->
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- DispatcherServlet启动读取xml配置文件加载组件，构建web容器（子），通过contextConfigLocation为其配置多个xml文件-->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+    <!-- 新增multipart-config 子元素，该servlet才启用文件上传功能（必须）  -->
+    <multipart-config>
+      <!-- 当上传文件被处理或文件超过fileSizeThreshold，文件的保存路径；默认为空串 -->
+      <location>D:\temp\springmvcUploadDir</location>
+      <!-- 上传文件字节最大值，若超过则抛出异常；默认无限；我们这里设置为20M -->
+      <max-file-size>20971520</max-file-size>
+      <!-- 请求报文字节最大值，若超过则抛出异常；默认无限；我们这里设置为1000M -->
+      <max-request-size>1048576000</max-request-size>
+      <!-- 临时保存到磁盘的文件大小最小值（超过该值就保存）；默认0 -->
+      <file-size-threshold>-1</file-size-threshold>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+</web-app>
