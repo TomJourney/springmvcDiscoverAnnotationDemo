@@ -19,6 +19,7 @@ public class BankCardAppService {
                 BankCardDto.build(1L, "62140001", "银行卡备注1")
                 , BankCardDto.build(2L, "62140002", "银行卡备注2")
                 , BankCardDto.build(3L, "62140003", "银行卡备注3")
+                , BankCardDto.build(4L, "62140004", "银行卡备注4")
         );
     }
 }

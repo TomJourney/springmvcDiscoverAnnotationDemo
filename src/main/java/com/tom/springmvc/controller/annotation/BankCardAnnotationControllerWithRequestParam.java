@@ -1,11 +1,10 @@
 package com.tom.springmvc.controller.annotation;
 
 import com.tom.springmvc.model.bankcard.BankCardAppService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -16,18 +15,18 @@ import org.springframework.web.servlet.ModelAndView;
  * @createTime 2024年10月04日 11:55:00
  */
 @Controller
-@RequestMapping("/annotation")
-public class BankCardAnnotationController {
+@RequestMapping("/bankCardAnnotationControllerWithRequestParam")
+public class BankCardAnnotationControllerWithRequestParam {
 
-    private BankCardAppService bankCardAppService;
+    private final BankCardAppService bankCardAppService;
 
-    public BankCardAnnotationController(BankCardAppService bankCardAppService) {
+    public BankCardAnnotationControllerWithRequestParam(BankCardAppService bankCardAppService) {
         this.bankCardAppService = bankCardAppService;
     }
 
-    @RequestMapping(value = "/annotationQryCardList", method = RequestMethod.GET)
-    public ModelAndView qryCardList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        System.out.println("qryCardList accessed");
+    @RequestMapping(value = "/annotationQryCardList", consumes = {"text/plain;charset=UTF-8"}, produces = {"text/html;charset=UTF-8"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView qryCardList(@RequestParam("k1") String userName) throws Exception {
+        System.out.println("userName=" + userName);
         ModelAndView modelAndView = new ModelAndView("bankCardListPage");
         modelAndView.addObject("bankCardList", bankCardAppService.listCard());
         return modelAndView;

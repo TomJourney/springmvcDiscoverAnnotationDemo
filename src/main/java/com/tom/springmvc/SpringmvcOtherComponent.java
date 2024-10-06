@@ -1,5 +1,6 @@
 package com.tom.springmvc;
 
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.multipart.MultipartResolver;
@@ -10,7 +11,9 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 /**
  * @author Tom
@@ -25,8 +28,12 @@ public class SpringmvcOtherComponent {
 
         HandlerMapping handlerMapping;
 
-        org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping a;
-
         RequestMappingHandlerMapping requestMappingHandlerMapping;
+
+        RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
+
+        MappingJackson2JsonView mappingJackson2JsonView;
     }
 }
