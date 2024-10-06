@@ -52,17 +52,6 @@
       <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
     </init-param>
     <load-on-startup>2</load-on-startup>
-    <!-- 新增multipart-config 子元素，该servlet才启用文件上传功能（必须）  -->
-    <multipart-config>
-      <!-- 当上传文件被处理或文件超过fileSizeThreshold，文件的保存路径；默认为空串 -->
-      <location>D:\temp\springmvcUploadDir</location>
-      <!-- 上传文件字节最大值，若超过则抛出异常；默认无限；我们这里设置为20M -->
-      <max-file-size>20971520</max-file-size>
-      <!-- 请求报文字节最大值，若超过则抛出异常；默认无限；我们这里设置为1000M -->
-      <max-request-size>1048576000</max-request-size>
-      <!-- 临时保存到磁盘的文件大小最小值（超过该值就保存）；默认0 -->
-      <file-size-threshold>-1</file-size-threshold>
-    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>dispatcher</servlet-name>

@@ -8,8 +8,18 @@
         http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <mvc:annotation-driven/>
+    <!-- https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/enable.html -->
+    <!-- 启用mvc配置， 该元素可以注册DispatcherServlet处理请求的基础设施bean，
+    参见 https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-servlet/special-bean-types.html -->
+    <bean name="jacksonObjectMapper"
+          class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean" />
 
+    <mvc:annotation-driven />
+
+    <!-- https://docs.spring.io/spring-framework/reference/core/beans/classpath-scanning.html -->
+    <!-- spring可以自动检测被注解标注的class并注册到spring容器 -->
+    <!--context:component-scan 启用了 <context:annotation-config>的功能 -->
+    <!-- 此外， context:component-scan 也包含了 AutowiredAnnotationBeanPostProcessor，CommonAnnotationBeanPostProcessor 功能 -->
     <context:component-scan base-package="com.tom.springmvc" />
 
     <!-- 注册SimpleMappingExceptionResolver-处理器异常解析器 -->
