@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
 import java.util.Objects;
 
@@ -25,6 +24,14 @@ public class TomWebThrowExceptionController {
     protected ModelAndView throwException(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (Objects.isNull(request.getParameter("testParamKey"))) {
             throw new TomWebException(BusiDateUtils.getNowTextYearToSecond() + " testParamKey查无记录");
+        }
+        return new ModelAndView("index");
+    }
+
+    @RequestMapping("/throwExceptionWithCode")
+    protected ModelAndView throwExceptionWithCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (Objects.isNull(request.getParameter("testParamKey"))) {
+            throw new TomWebException("TOM001", BusiDateUtils.getNowTextYearToSecond() + " testParamKey查无记录");
         }
         return new ModelAndView("index");
     }

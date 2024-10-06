@@ -22,16 +22,4 @@
     <!-- 此外， context:component-scan 也包含了 AutowiredAnnotationBeanPostProcessor，CommonAnnotationBeanPostProcessor 功能 -->
     <context:component-scan base-package="com.tom.springmvc" />
 
-    <!-- 注册SimpleMappingExceptionResolver-处理器异常解析器 -->
-    <bean name="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="defaultErrorView" value="/error/defaultErrorPage" />
-        <property name="exceptionAttribute" value="exceptionInfo" />
-        <property name="exceptionMappings">
-            <props>
-                <prop key="com.tom.springmvc.exception.TomWebException">/error/tomWebErrorPage</prop>
-                <prop key="java.lang.Exception">/error/exceptionBaseErrorPage</prop>
-            </props>
-        </property>
-    </bean>
-
 </beans>
